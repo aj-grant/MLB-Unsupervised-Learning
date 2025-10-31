@@ -1,0 +1,15 @@
+principal-components-analysis
+PCA1
+PCA2
+PCA3
+PCA4
+k-means-clustering
+KM1
+KM2
+KM3
+KM4
+hierarchical-clustering
+HC1
+HC2
+HC3
+HC4

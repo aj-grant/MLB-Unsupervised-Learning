@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Hierarchical Clustering | Machine Learning for Biostatistics</title>
+  <meta name="description" content="3 Hierarchical Clustering | Machine Learning for Biostatistics" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Hierarchical Clustering | Machine Learning for Biostatistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Hierarchical Clustering | Machine Learning for Biostatistics" />
+  
+  
+  
+
+<meta name="author" content="Armando Teixeira-Pinto, Jaroslaw Harezlak &amp; Andrew Grant" />
+
+
+<meta name="date" content="2025-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="k-means-clustering.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><img src="bca.png"><H3><b><font color="F26531"> Machine Learning for Biostatistics </font> </b></H3> <a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><small><i> Back to canvas website </i></small></a></center></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Unsupervised Learning</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dataset-used-in-the-examples"><i class="fa fa-check"></i>Dataset used in the examples</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#slides-from-the-videos"><i class="fa fa-check"></i>Slides from the videos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>1</b> Principal components analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA1"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA2"><i class="fa fa-check"></i><b>1.2</b> Readings</a></li>
+<li class="chapter" data-level="1.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA3"><i class="fa fa-check"></i><b>1.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-1---identify-the-principal-components"><i class="fa fa-check"></i>Task 1 - Identify the principal components</a></li>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-2---use-pca-in-a-prediction-model"><i class="fa fa-check"></i>Task 2 - Use PCA in a prediction model</a></li>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-3---use-pca-to-compress-an-image"><i class="fa fa-check"></i>Task 3 - Use PCA to compress an image</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA4"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>2</b> K-means clustering</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM2"><i class="fa fa-check"></i><b>2.2</b> Readings</a></li>
+<li class="chapter" data-level="2.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM3"><i class="fa fa-check"></i><b>2.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-means-clustering.html"><a href="k-means-clustering.html#task-1---identify-k-clusters"><i class="fa fa-check"></i>Task 1 - Identify k clusters</a></li>
+<li class="chapter" data-level="" data-path="k-means-clustering.html"><a href="k-means-clustering.html#task-2---choosing-the-number-of-clusters"><i class="fa fa-check"></i>Task 2 - Choosing the number of clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM4"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>3</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC2"><i class="fa fa-check"></i><b>3.2</b> Readings</a></li>
+<li class="chapter" data-level="3.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC3"><i class="fa fa-check"></i><b>3.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#task-1---identify-clusters"><i class="fa fa-check"></i>Task 1 - Identify clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC4"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><center><a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><img src="usyd2.gif" width="60%"></a> <small>© A.Teixeira-Pinto, University of Sydney, 2021</small></center></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning for Biostatistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hierarchical-clustering" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Hierarchical Clustering<a href="hierarchical-clustering.html#hierarchical-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="HC1" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Introduction<a href="hierarchical-clustering.html#HC1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Hierarchical clustering</strong> is an alternative approach to k-means clustering,which does not require a pre-specification of the number of clusters.</p>
+<p>The idea of hierarchical clustering is to treat every observation as its own cluster. Then, at each step, we merge the two clusters that are more similar until all observations are clustered together. This can be represented in a tree shaped image called a <em>dendrogram</em>.</p>
+<p><img src="dendo.png" /></p>
+<p>The height of the branches indicate how different the clusters are. The
+distance between the groups is usually referred to as <strong>linkage</strong>. There are
+4 types of linkage:</p>
+<ul>
+<li><p>Complete linkage: It computes all pairwise dissimilarities between the data
+points in cluster A and cluster B. The maximum value of these dissimilarities
+is the distance between the two clusters.</p></li>
+<li><p>Single linkage: Similar to complete linkage but it takes the smallest
+(minimum)
+dissimilarity as distance between the two clusters.</p></li>
+<li><p>Average linkage: It computes all pairwise dissimilarities between the data
+points in cluster A and cluster B and considers the average of
+these dissimilarities as the distance between the two clusters.</p></li>
+<li><p>Centroid linkage clustering: It computes the dissimilarity between the
+centroid for cluster A (a mean vector of length p variables) and the
+centroid for cluster B.</p></li>
+</ul>
+<p>Complete and average linkage are more commonly used methods. In terms of
+dissimilarity measure, we will use the Euclidean distance but there
+are other options.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EbwuPnQh0sE?si=DFaTg9XJ-GD3zRHK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+</div>
+<div id="HC2" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Readings<a href="hierarchical-clustering.html#HC2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Read the following chapters of <em>An introduction to statistical learning</em>:</p>
+<ul>
+<li><p>12.4.2 Hierarchical Clustering</p></li>
+<li><p>12.4.3 Practical Issues in Clustering</p></li>
+</ul>
+</div>
+<div id="HC3" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Practice session<a href="hierarchical-clustering.html#HC3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="task-1---identify-clusters" class="section level3 unnumbered hasAnchor">
+<h3>Task 1 - Identify clusters<a href="hierarchical-clustering.html#task-1---identify-clusters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using the <a href="https://www.dropbox.com/s/vp44yozebx5xgok/bdiag.csv?dl=1">bdiag.csv</a>,
+let’s use 2 of the variables that characterise the cell nuclei: <em>radius_mean</em>
+and <em>texture_mean</em> and build a dendrogram</p>
+<p>We will use the function <code>hclust()</code> to build the dendrogram and the
+function <code>dist</code> that computes the distances between observations:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="hierarchical-clustering.html#cb42-1" tabindex="-1"></a><span class="co">#read the dataset</span></span>
+<span id="cb42-2"><a href="hierarchical-clustering.html#cb42-2" tabindex="-1"></a>bdiag.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://www.dropbox.com/s/vp44yozebx5xgok/bdiag.csv?dl=1&quot;</span>, </span>
+<span id="cb42-3"><a href="hierarchical-clustering.html#cb42-3" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-4"><a href="hierarchical-clustering.html#cb42-4" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="hierarchical-clustering.html#cb42-5" tabindex="-1"></a><span class="co">#select a subset of the variables</span></span>
+<span id="cb42-6"><a href="hierarchical-clustering.html#cb42-6" tabindex="-1"></a>bdiag<span class="fl">.2</span>vars <span class="ot">&lt;-</span> bdiag.data[,<span class="fu">c</span>(<span class="st">&quot;radius_mean&quot;</span>, <span class="st">&quot;texture_mean&quot;</span>)]</span>
+<span id="cb42-7"><a href="hierarchical-clustering.html#cb42-7" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="hierarchical-clustering.html#cb42-8" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="hierarchical-clustering.html#cb42-9" tabindex="-1"></a><span class="co">#distances between the observations</span></span>
+<span id="cb42-10"><a href="hierarchical-clustering.html#cb42-10" tabindex="-1"></a>bdiag.dist <span class="ot">&lt;-</span> <span class="fu">dist</span>(bdiag<span class="fl">.2</span>vars, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb42-11"><a href="hierarchical-clustering.html#cb42-11" tabindex="-1"></a>      </span>
+<span id="cb42-12"><a href="hierarchical-clustering.html#cb42-12" tabindex="-1"></a>      <span class="do">#### what is dist() doing?##################################</span></span>
+<span id="cb42-13"><a href="hierarchical-clustering.html#cb42-13" tabindex="-1"></a>      bdiag.dist[<span class="dv">1</span>]  <span class="co">#is the distance between obs1 and obs2</span></span></code></pre></div>
+<pre><code>## [1] 7.82742</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="hierarchical-clustering.html#cb44-1" tabindex="-1"></a>      bdiag<span class="fl">.2</span>vars[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, ] <span class="co">#obs 1 and 2</span></span></code></pre></div>
+<pre><code>##   radius_mean texture_mean
+## 1       17.99        10.38
+## 2       20.57        17.77</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="hierarchical-clustering.html#cb46-1" tabindex="-1"></a>      <span class="fu">sqrt</span>((bdiag<span class="fl">.2</span>vars[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">-</span> bdiag<span class="fl">.2</span>vars[<span class="dv">2</span>,<span class="dv">1</span> ])<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> </span>
+<span id="cb46-2"><a href="hierarchical-clustering.html#cb46-2" tabindex="-1"></a>        (bdiag<span class="fl">.2</span>vars[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">-</span> bdiag<span class="fl">.2</span>vars[<span class="dv">2</span>,<span class="dv">2</span> ])<span class="sc">^</span><span class="dv">2</span> )  <span class="co">#Eucl distance</span></span></code></pre></div>
+<pre><code>## [1] 7.82742</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="hierarchical-clustering.html#cb48-1" tabindex="-1"></a>      <span class="do">#############################################################</span></span>
+<span id="cb48-2"><a href="hierarchical-clustering.html#cb48-2" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="hierarchical-clustering.html#cb48-3" tabindex="-1"></a><span class="co">#Dendrogram using the complete linkage method</span></span>
+<span id="cb48-4"><a href="hierarchical-clustering.html#cb48-4" tabindex="-1"></a>bdiag.ddgram <span class="ot">&lt;-</span> <span class="fu">hclust</span>(bdiag.dist, <span class="at">method=</span><span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb48-5"><a href="hierarchical-clustering.html#cb48-5" tabindex="-1"></a><span class="co">#Plot the dendrogram</span></span>
+<span id="cb48-6"><a href="hierarchical-clustering.html#cb48-6" tabindex="-1"></a><span class="co">#the option hang = -1 will make the</span></span>
+<span id="cb48-7"><a href="hierarchical-clustering.html#cb48-7" tabindex="-1"></a><span class="co">#labels appear below 0</span></span>
+<span id="cb48-8"><a href="hierarchical-clustering.html#cb48-8" tabindex="-1"></a><span class="fu">plot</span>(bdiag.ddgram, <span class="at">cex=</span>.<span class="dv">4</span>, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>If we cut the tree at the height of 20, we get 3 clusters</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="hierarchical-clustering.html#cb49-1" tabindex="-1"></a><span class="fu">plot</span>(bdiag.ddgram, <span class="at">cex=</span>.<span class="dv">4</span>, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb49-2"><a href="hierarchical-clustering.html#cb49-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="dv">20</span>, <span class="at">b=</span><span class="dv">0</span>, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>We can draw a rectangle around the 3 clusters</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="hierarchical-clustering.html#cb50-1" tabindex="-1"></a><span class="fu">plot</span>(bdiag.ddgram, <span class="at">cex=</span>.<span class="dv">4</span>, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb50-2"><a href="hierarchical-clustering.html#cb50-2" tabindex="-1"></a><span class="fu">rect.hclust</span>(bdiag.ddgram, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">border =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>And obtain the cluster for each observation</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="hierarchical-clustering.html#cb51-1" tabindex="-1"></a>group3 <span class="ot">&lt;-</span> <span class="fu">cutree</span>(bdiag.ddgram, <span class="at">k =</span> <span class="dv">2</span>)  </span>
+<span id="cb51-2"><a href="hierarchical-clustering.html#cb51-2" tabindex="-1"></a><span class="fu">table</span>(group3 )</span></code></pre></div>
+<pre><code>## group3
+##   1   2 
+## 498  71</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="hierarchical-clustering.html#cb53-1" tabindex="-1"></a><span class="co">#We can also visualise the clusters</span></span>
+<span id="cb53-2"><a href="hierarchical-clustering.html#cb53-2" tabindex="-1"></a><span class="fu">fviz_cluster</span>(<span class="fu">list</span>(<span class="at">data =</span> bdiag<span class="fl">.2</span>vars, <span class="at">cluster =</span> group3 ))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><strong>TRY IT YOURSELF:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Get 2 clusters with hierachical clustering using the variables <em>age</em>,
+<em>weight</em>, <em>height</em>, <em>adipos</em>, <em>free</em>, <em>neck</em>, <em>chest</em>,
+<em>abdom</em>, <em>hip</em>, <em>thigh</em>, <em>knee</em>, <em>ankle</em>, <em>biceps</em>, <em>forearm</em> and <em>wrist</em>.
+and compare the clustering result with the observed <em>diagnosis</em></li>
+</ol>
+<details>
+<summary>
+See the solution code
+</summary>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="hierarchical-clustering.html#cb54-1" tabindex="-1"></a><span class="co">#select a subset of the variables</span></span>
+<span id="cb54-2"><a href="hierarchical-clustering.html#cb54-2" tabindex="-1"></a>bdiag<span class="fl">.10</span>vars <span class="ot">&lt;-</span> bdiag.data[,<span class="fu">c</span>(<span class="st">&quot;radius_mean&quot;</span>, <span class="st">&quot;texture_mean&quot;</span>,  </span>
+<span id="cb54-3"><a href="hierarchical-clustering.html#cb54-3" tabindex="-1"></a>                     <span class="st">&quot;perimeter_mean&quot;</span>, <span class="st">&quot;area_mean&quot;</span>, </span>
+<span id="cb54-4"><a href="hierarchical-clustering.html#cb54-4" tabindex="-1"></a>                     <span class="st">&quot;smoothness_mean&quot;</span>, <span class="st">&quot;compactness_mean&quot;</span>, </span>
+<span id="cb54-5"><a href="hierarchical-clustering.html#cb54-5" tabindex="-1"></a>                     <span class="st">&quot;concavity_mean&quot;</span>, <span class="st">&quot;concave.points_mean&quot;</span>, </span>
+<span id="cb54-6"><a href="hierarchical-clustering.html#cb54-6" tabindex="-1"></a>                     <span class="st">&quot;symmetry_mean&quot;</span>, <span class="st">&quot;fractal_dimension_mean&quot;</span>)]</span>
+<span id="cb54-7"><a href="hierarchical-clustering.html#cb54-7" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="hierarchical-clustering.html#cb54-8" tabindex="-1"></a><span class="co">#distances between the observations</span></span>
+<span id="cb54-9"><a href="hierarchical-clustering.html#cb54-9" tabindex="-1"></a>bdiag.dist10 <span class="ot">&lt;-</span> <span class="fu">dist</span>(bdiag<span class="fl">.10</span>vars, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb54-10"><a href="hierarchical-clustering.html#cb54-10" tabindex="-1"></a><span class="co">#Dendrogram using the complete linkage method</span></span>
+<span id="cb54-11"><a href="hierarchical-clustering.html#cb54-11" tabindex="-1"></a>bdiag.ddgram10 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(bdiag.dist10, <span class="at">method=</span><span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb54-12"><a href="hierarchical-clustering.html#cb54-12" tabindex="-1"></a><span class="fu">plot</span>(bdiag.ddgram, <span class="at">cex=</span>.<span class="dv">4</span>, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="hierarchical-clustering.html#cb55-1" tabindex="-1"></a>bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster <span class="ot">&lt;-</span> <span class="fu">cutree</span>(bdiag.ddgram10, <span class="at">k =</span> <span class="dv">2</span>)  </span>
+<span id="cb55-2"><a href="hierarchical-clustering.html#cb55-2" tabindex="-1"></a><span class="fu">table</span>(bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster, bdiag.data<span class="sc">$</span>diagnosis)</span></code></pre></div>
+</details>
+<p>
+<p>
+<ol start="2" style="list-style-type: decimal">
+<li>How does the clustering changes with different linkage methods?</li>
+</ol>
+<details>
+<summary>
+See the solution code
+</summary>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="hierarchical-clustering.html#cb56-1" tabindex="-1"></a><span class="co">#select a subset of the variables</span></span>
+<span id="cb56-2"><a href="hierarchical-clustering.html#cb56-2" tabindex="-1"></a>bdiag<span class="fl">.10</span>vars <span class="ot">&lt;-</span> bdiag.data[,<span class="fu">c</span>(<span class="st">&quot;radius_mean&quot;</span>, <span class="st">&quot;texture_mean&quot;</span>,  </span>
+<span id="cb56-3"><a href="hierarchical-clustering.html#cb56-3" tabindex="-1"></a>                     <span class="st">&quot;perimeter_mean&quot;</span>, <span class="st">&quot;area_mean&quot;</span>, </span>
+<span id="cb56-4"><a href="hierarchical-clustering.html#cb56-4" tabindex="-1"></a>                     <span class="st">&quot;smoothness_mean&quot;</span>, <span class="st">&quot;compactness_mean&quot;</span>, </span>
+<span id="cb56-5"><a href="hierarchical-clustering.html#cb56-5" tabindex="-1"></a>                     <span class="st">&quot;concavity_mean&quot;</span>, <span class="st">&quot;concave.points_mean&quot;</span>, </span>
+<span id="cb56-6"><a href="hierarchical-clustering.html#cb56-6" tabindex="-1"></a>                     <span class="st">&quot;symmetry_mean&quot;</span>, <span class="st">&quot;fractal_dimension_mean&quot;</span>)]</span>
+<span id="cb56-7"><a href="hierarchical-clustering.html#cb56-7" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="hierarchical-clustering.html#cb56-8" tabindex="-1"></a><span class="co">#distances between the observations</span></span>
+<span id="cb56-9"><a href="hierarchical-clustering.html#cb56-9" tabindex="-1"></a>bdiag.dist10 <span class="ot">&lt;-</span> <span class="fu">dist</span>(bdiag<span class="fl">.10</span>vars, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb56-10"><a href="hierarchical-clustering.html#cb56-10" tabindex="-1"></a><span class="co">#Dendrogram using the complete linkage method</span></span>
+<span id="cb56-11"><a href="hierarchical-clustering.html#cb56-11" tabindex="-1"></a>bdiag.ddgram10.comp <span class="ot">&lt;-</span> <span class="fu">hclust</span>(bdiag.dist10, <span class="at">method=</span><span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb56-12"><a href="hierarchical-clustering.html#cb56-12" tabindex="-1"></a>bdiag.ddgram10.sing <span class="ot">&lt;-</span> <span class="fu">hclust</span>(bdiag.dist10, <span class="at">method=</span><span class="st">&quot;single&quot;</span>)</span>
+<span id="cb56-13"><a href="hierarchical-clustering.html#cb56-13" tabindex="-1"></a>bdiag.ddgram10.aver <span class="ot">&lt;-</span>  <span class="fu">hclust</span>(bdiag.dist10, <span class="at">method=</span><span class="st">&quot;average&quot;</span>)</span>
+<span id="cb56-14"><a href="hierarchical-clustering.html#cb56-14" tabindex="-1"></a>bdiag.ddgram10.cent <span class="ot">&lt;-</span>  <span class="fu">hclust</span>(bdiag.dist10, <span class="at">method=</span><span class="st">&quot;centroid&quot;</span>)</span>
+<span id="cb56-15"><a href="hierarchical-clustering.html#cb56-15" tabindex="-1"></a></span>
+<span id="cb56-16"><a href="hierarchical-clustering.html#cb56-16" tabindex="-1"></a>bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.comp <span class="ot">&lt;-</span> <span class="fu">cutree</span>(bdiag.ddgram10.comp, <span class="at">k =</span> <span class="dv">2</span>)  </span>
+<span id="cb56-17"><a href="hierarchical-clustering.html#cb56-17" tabindex="-1"></a>bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.sing <span class="ot">&lt;-</span> <span class="fu">cutree</span>(bdiag.ddgram10.sing, <span class="at">k =</span> <span class="dv">2</span>)  </span>
+<span id="cb56-18"><a href="hierarchical-clustering.html#cb56-18" tabindex="-1"></a>bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.aver <span class="ot">&lt;-</span> <span class="fu">cutree</span>(bdiag.ddgram10.aver, <span class="at">k =</span> <span class="dv">2</span>)  </span>
+<span id="cb56-19"><a href="hierarchical-clustering.html#cb56-19" tabindex="-1"></a>bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.cent <span class="ot">&lt;-</span> <span class="fu">cutree</span>(bdiag.ddgram10.cent, <span class="at">k =</span> <span class="dv">2</span>)  </span>
+<span id="cb56-20"><a href="hierarchical-clustering.html#cb56-20" tabindex="-1"></a></span>
+<span id="cb56-21"><a href="hierarchical-clustering.html#cb56-21" tabindex="-1"></a><span class="fu">table</span>(bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.comp, bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.sing)</span>
+<span id="cb56-22"><a href="hierarchical-clustering.html#cb56-22" tabindex="-1"></a><span class="fu">table</span>(bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.comp, bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.aver)</span>
+<span id="cb56-23"><a href="hierarchical-clustering.html#cb56-23" tabindex="-1"></a><span class="fu">table</span>(bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.comp, bdiag<span class="fl">.2</span>vars<span class="sc">$</span>cluster.cent)</span></code></pre></div>
+</details>
+<p>
+<p>
+</div>
+</div>
+<div id="HC4" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Exercises<a href="hierarchical-clustering.html#HC4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Solve the following exercises:</p>
+<ol style="list-style-type: decimal">
+<li>The dataset <em>fat</em> is available in the <em>library(faraway)</em>.<br />
+The dataset contains several physical measurements.</li>
+</ol>
+<p>Using the variables <em>age</em>, <em>weight</em>, <em>height</em>, <em>adipos</em>, <em>free</em>, <em>neck</em>, <em>chest</em>,
+<em>abdom</em>, <em>hip</em>, <em>thigh</em>, <em>knee</em>, <em>ankle</em>, <em>biceps</em>, <em>forearm</em> and <em>wrist</em></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Plot 3 clusters produce by hierarchical cluster based on the two
+principal components of the data?</p></li>
+<li><p>Compare the result above with the
+clusters obtained using all the variables.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="k-means-clustering.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

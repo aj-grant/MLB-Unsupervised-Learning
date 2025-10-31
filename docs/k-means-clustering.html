@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 K-means clustering | Machine Learning for Biostatistics</title>
+  <meta name="description" content="2 K-means clustering | Machine Learning for Biostatistics" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 K-means clustering | Machine Learning for Biostatistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 K-means clustering | Machine Learning for Biostatistics" />
+  
+  
+  
+
+<meta name="author" content="Armando Teixeira-Pinto, Jaroslaw Harezlak &amp; Andrew Grant" />
+
+
+<meta name="date" content="2025-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="principal-components-analysis.html"/>
+<link rel="next" href="hierarchical-clustering.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><img src="bca.png"><H3><b><font color="F26531"> Machine Learning for Biostatistics </font> </b></H3> <a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><small><i> Back to canvas website </i></small></a></center></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Unsupervised Learning</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dataset-used-in-the-examples"><i class="fa fa-check"></i>Dataset used in the examples</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#slides-from-the-videos"><i class="fa fa-check"></i>Slides from the videos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>1</b> Principal components analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA1"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA2"><i class="fa fa-check"></i><b>1.2</b> Readings</a></li>
+<li class="chapter" data-level="1.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA3"><i class="fa fa-check"></i><b>1.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-1---identify-the-principal-components"><i class="fa fa-check"></i>Task 1 - Identify the principal components</a></li>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-2---use-pca-in-a-prediction-model"><i class="fa fa-check"></i>Task 2 - Use PCA in a prediction model</a></li>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-3---use-pca-to-compress-an-image"><i class="fa fa-check"></i>Task 3 - Use PCA to compress an image</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA4"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>2</b> K-means clustering</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM2"><i class="fa fa-check"></i><b>2.2</b> Readings</a></li>
+<li class="chapter" data-level="2.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM3"><i class="fa fa-check"></i><b>2.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-means-clustering.html"><a href="k-means-clustering.html#task-1---identify-k-clusters"><i class="fa fa-check"></i>Task 1 - Identify k clusters</a></li>
+<li class="chapter" data-level="" data-path="k-means-clustering.html"><a href="k-means-clustering.html#task-2---choosing-the-number-of-clusters"><i class="fa fa-check"></i>Task 2 - Choosing the number of clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM4"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>3</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC2"><i class="fa fa-check"></i><b>3.2</b> Readings</a></li>
+<li class="chapter" data-level="3.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC3"><i class="fa fa-check"></i><b>3.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#task-1---identify-clusters"><i class="fa fa-check"></i>Task 1 - Identify clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC4"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><center><a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><img src="usyd2.gif" width="60%"></a> <small>© A.Teixeira-Pinto, University of Sydney, 2021</small></center></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning for Biostatistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="k-means-clustering" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> K-means clustering<a href="k-means-clustering.html#k-means-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="KM1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction<a href="k-means-clustering.html#KM1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>K-means clustering is a popular unsupervised learning method based on a
+simple and intuitive approach that clusters similar observations into groups.</p>
+<p>We start by choosing the number of clusters <span class="math inline">\(K\)</span> and the objective is to assign
+every observation to one, and just one, of the clusters. The clusters are
+chosen so that the within-cluster variation is minimised, i.e., the data points
+in each cluster should be close together.</p>
+<p>The figure below shows an example of 3 clusters based on two variables.</p>
+<p><img src="kmeans.png" /></p>
+<p>The way the clusters are defined is based on an iterative process. Once we
+chose the number of clusters:</p>
+<ul>
+<li>We start by assigning each data point to one of the clusters, randomly.</li>
+<li>We then compute the centroid of each cluster.</li>
+<li>Next, we compute the distance (usually the Euclidean distance) of each data point to the centroids.</li>
+<li>The data points are re-assigned to the corresponding cluster
+of the closest centroid.</li>
+<li>The centroids are recomputed</li>
+<li>We repeat the process until convergence</li>
+</ul>
+<p>One important question that immediately arises is <em>how many clusters should
+we consider?</em> Unfortunately, there is not a definitive answer. In the practice
+session we will show some graphical methods that can be used as an indication of
+the number of clusters suggested by the data, but as you will see, different
+methods can suggest different number of clusters.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Rmj-ZGojrtY?si=s-bkp_t1eL4q8i15" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
+</div>
+<div id="KM2" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Readings<a href="k-means-clustering.html#KM2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Read the following chapters of <em>An introduction to statistical learning</em>:</p>
+<ul>
+<li>12.4.1 K-Means Clustering Analysis</li>
+</ul>
+</div>
+<div id="KM3" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Practice session<a href="k-means-clustering.html#KM3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="task-1---identify-k-clusters" class="section level3 unnumbered hasAnchor">
+<h3>Task 1 - Identify k clusters<a href="k-means-clustering.html#task-1---identify-k-clusters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using the <a href="https://www.dropbox.com/s/vp44yozebx5xgok/bdiag.csv?dl=1">bdiag.csv</a>,
+let’s use 2 of the variables that characterise the cell nuclei - <em>radius_mean</em>
+and <em>texture_mean</em> - to identify 3 data clusters</p>
+<p>We will use the function <code>kmeans()</code> with the option <code>centers=3</code> indicating
+that we want 3 clusters.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="k-means-clustering.html#cb35-1" tabindex="-1"></a><span class="co">#read the dataset</span></span>
+<span id="cb35-2"><a href="k-means-clustering.html#cb35-2" tabindex="-1"></a>bdiag.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://www.dropbox.com/s/vp44yozebx5xgok/bdiag.csv?dl=1&quot;</span>, </span>
+<span id="cb35-3"><a href="k-means-clustering.html#cb35-3" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-4"><a href="k-means-clustering.html#cb35-4" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="k-means-clustering.html#cb35-5" tabindex="-1"></a><span class="co">#select a subset of the variables</span></span>
+<span id="cb35-6"><a href="k-means-clustering.html#cb35-6" tabindex="-1"></a>bdiag<span class="fl">.2</span>vars <span class="ot">&lt;-</span> bdiag.data[,<span class="fu">c</span>(<span class="st">&quot;radius_mean&quot;</span>, <span class="st">&quot;texture_mean&quot;</span>)]</span>
+<span id="cb35-7"><a href="k-means-clustering.html#cb35-7" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="k-means-clustering.html#cb35-8" tabindex="-1"></a><span class="co">#let&#39;s compute the 3 clusters</span></span>
+<span id="cb35-9"><a href="k-means-clustering.html#cb35-9" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(bdiag<span class="fl">.2</span>vars, <span class="at">centers =</span> <span class="dv">3</span>)</span>
+<span id="cb35-10"><a href="k-means-clustering.html#cb35-10" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="k-means-clustering.html#cb35-11" tabindex="-1"></a>km</span></code></pre></div>
+<pre><code>## K-means clustering with 3 clusters of sizes 123, 291, 155
+## 
+## Cluster means:
+##   radius_mean texture_mean
+## 1    19.55667     21.85732
+## 2    12.43088     16.11027
+## 3    13.00369     23.22110
+## 
+## Clustering vector:
+##   [1] 2 1 1 3 1 2 1 3 3 3 3 2 1 3 3 3 3 1 1 2 2 2 2 1 1 2 3 1 3 2 1 2 1 1 2 1 3
+##  [38] 2 3 3 3 3 1 3 3 1 2 2 2 3 3 2 2 1 3 2 1 3 2 2 2 3 3 2 3 3 3 2 2 2 1 2 1 2
+##  [75] 2 1 2 2 1 2 3 2 1 1 2 1 3 1 3 2 3 3 2 2 3 1 2 3 2 3 3 2 3 2 2 2 2 2 1 3 2
+## [112] 3 3 3 2 3 2 2 3 1 2 1 1 2 2 2 3 1 2 1 2 3 1 2 1 3 2 2 2 2 2 2 2 2 2 2 2 2
+## [149] 2 2 3 3 2 2 2 2 1 1 2 2 3 1 1 3 1 3 2 1 1 2 2 3 2 2 2 2 2 1 3 2 1 1 3 2 3
+## [186] 2 1 2 2 2 3 3 2 3 3 2 3 1 1 3 2 1 1 3 2 2 2 1 3 2 1 2 1 1 3 2 2 2 1 1 2 2
+## [223] 2 3 2 2 2 2 3 3 1 3 3 1 2 3 1 1 3 3 2 2 2 3 1 3 2 2 3 2 1 2 1 2 1 2 1 2 3
+## [260] 3 1 1 1 2 1 1 2 3 2 3 2 2 1 2 1 2 2 1 2 2 1 2 1 1 2 2 3 2 3 2 3 2 2 2 2 2
+## [297] 2 2 2 3 1 3 1 2 2 3 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 1 2 1 2 2 2 2 1 1 2 2 3
+## [334] 2 2 1 2 1 2 1 2 2 2 1 2 2 2 2 2 2 2 2 1 3 2 2 2 2 2 2 2 3 2 2 2 1 1 2 1 1
+## [371] 3 2 1 1 2 2 3 3 2 2 2 2 3 2 2 3 2 2 2 1 2 2 3 1 2 2 2 2 2 2 1 2 2 2 2 2 2
+## [408] 3 1 2 2 2 3 3 3 3 3 3 2 3 2 2 2 2 2 3 2 3 2 2 3 2 1 1 2 3 2 2 3 2 2 1 2 2
+## [445] 1 3 1 2 2 1 3 1 3 2 2 3 3 3 3 3 3 1 3 2 2 3 3 2 1 2 2 3 2 3 2 2 3 2 2 1 2
+## [482] 2 2 2 2 2 2 1 2 1 3 2 1 2 3 3 2 2 1 1 2 3 2 1 2 2 3 2 2 3 2 2 3 2 2 2 1 1
+## [519] 2 2 2 1 3 2 2 2 2 2 2 2 2 3 2 1 2 1 3 3 3 3 2 3 3 3 3 3 2 2 2 3 3 3 3 3 3
+## [556] 3 2 3 3 3 3 3 3 1 1 1 3 1 3
+## 
+## Within cluster sum of squares by cluster:
+## [1] 2001.931 2463.826 2288.434
+##  (between_SS / total_SS =  61.5 %)
+## 
+## Available components:
+## 
+## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;     &quot;tot.withinss&quot;
+## [6] &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;         &quot;ifault&quot;</code></pre>
+<p>The component <code>km$cluster</code> has the final clusters assignment. We will use the
+package <code>factoextra</code> that has some plot functions (based on ggplot) that are
+useful.</p>
+<p>The <code>fviz_cluster()</code> plots the results of the clusters in a scatter plot
+formed by the two variables. <strong>If the clustering is based on more than 2
+variables, this function will run a principal components analysis and plot
+the first 2 principal components.</strong></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="k-means-clustering.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb37-2"><a href="k-means-clustering.html#cb37-2" tabindex="-1"></a><span class="fu">fviz_cluster</span>(km, <span class="at">data =</span> bdiag<span class="fl">.2</span>vars, <span class="at">label=</span><span class="cn">NA</span>)<span class="sc">+</span><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><strong>TRY IT YOURSELF:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Get 2 clusters with k-mean clustering based on the variables <em>age</em>,
+<em>weight</em>, <em>height</em>, <em>adipos</em>, <em>free</em>, <em>neck</em>, <em>chest</em>,
+<em>abdom</em>, <em>hip</em>, <em>thigh</em>, <em>knee</em>, <em>ankle</em>, <em>biceps</em>, <em>forearm</em> and <em>wrist</em> .</li>
+</ol>
+<details>
+<summary>
+See the solution code
+</summary>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="k-means-clustering.html#cb38-1" tabindex="-1"></a><span class="co">#select a subset of the variables</span></span>
+<span id="cb38-2"><a href="k-means-clustering.html#cb38-2" tabindex="-1"></a>bdiag<span class="fl">.10</span>vars <span class="ot">&lt;-</span> bdiag.data[,<span class="fu">c</span>(<span class="st">&quot;radius_mean&quot;</span>, <span class="st">&quot;texture_mean&quot;</span>,  </span>
+<span id="cb38-3"><a href="k-means-clustering.html#cb38-3" tabindex="-1"></a>                     <span class="st">&quot;perimeter_mean&quot;</span>, <span class="st">&quot;area_mean&quot;</span>, </span>
+<span id="cb38-4"><a href="k-means-clustering.html#cb38-4" tabindex="-1"></a>                     <span class="st">&quot;smoothness_mean&quot;</span>, <span class="st">&quot;compactness_mean&quot;</span>, </span>
+<span id="cb38-5"><a href="k-means-clustering.html#cb38-5" tabindex="-1"></a>                     <span class="st">&quot;concavity_mean&quot;</span>, <span class="st">&quot;concave.points_mean&quot;</span>, </span>
+<span id="cb38-6"><a href="k-means-clustering.html#cb38-6" tabindex="-1"></a>                     <span class="st">&quot;symmetry_mean&quot;</span>, <span class="st">&quot;fractal_dimension_mean&quot;</span>)]</span>
+<span id="cb38-7"><a href="k-means-clustering.html#cb38-7" tabindex="-1"></a>k2 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(bdiag<span class="fl">.10</span>vars, <span class="at">centers =</span> <span class="dv">2</span>)</span>
+<span id="cb38-8"><a href="k-means-clustering.html#cb38-8" tabindex="-1"></a><span class="fu">fviz_cluster</span>(k2, <span class="at">data =</span> bdiag<span class="fl">.10</span>vars, <span class="at">label=</span><span class="cn">NA</span>)<span class="sc">+</span><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</details>
+<p>
+<p>
+</div>
+<div id="task-2---choosing-the-number-of-clusters" class="section level3 unnumbered hasAnchor">
+<h3>Task 2 - Choosing the number of clusters<a href="k-means-clustering.html#task-2---choosing-the-number-of-clusters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lets consider the same example as in Task 1 with two variables.How many
+clusters should we consider?</p>
+<p>There are some ad-hoc visual methods that may help you guide selecting the
+number of clusters.</p>
+<p>The first method is called the <em>Elbow method</em> and consists in</p>
+<ul>
+<li>computing the k-means clustering for different values of <span class="math inline">\(k\)</span>, e.g,
+by varying <span class="math inline">\(k\)</span> from 1 to 10 clusters</li>
+<li>then, for each k, calculate the total within-cluster sum of square (<span class="math inline">\(wss\)</span>)</li>
+<li>and finally, plot the curve of <span class="math inline">\(wss\)</span> according to the number of clusters <span class="math inline">\(k\)</span>.</li>
+</ul>
+<p>In the plot, the location of a bend (knee) suggests the appropriate number
+of clusters. The function <code>fviz_nbclust()</code> implements this method</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="k-means-clustering.html#cb39-1" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(bdiag<span class="fl">.2</span>vars, kmeans, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>,  <span class="at">k.max =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>The plot above suggest 2 or 3 clusters.</p>
+<p>Another method is the <strong>Average Silhouette Method</strong>. In this method we look
+at the quality of the clustering by measuring how well each data point lies
+within its cluster. If the average silhouette width is high, this suggests
+a good clustering.
+We can then compute the average silhouette width for different values of <span class="math inline">\(k\)</span>
+and select the number of clusters with higher average silhouette width.</p>
+<p>The same function as above also implements this method.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="k-means-clustering.html#cb40-1" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(bdiag<span class="fl">.2</span>vars, kmeans, <span class="at">method =</span> <span class="st">&quot;silhouette&quot;</span>,  <span class="at">k.max =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>This method suggests 2 clusters.</p>
+<p>The final method is the <strong>Gap Statistic Method</strong>. This method compares
+the total intracluster variation for different number of cluster <span class="math inline">\(k\)</span>
+with their expected values under a data with no clustering (these
+data generated using Monte Carlo simulations). The higher the gap between
+the observed and expected, the better the clustering.
+More details about this method
+is available in
+<a href="http://web.stanford.edu/~hastie/Papers/gap.pdf">R. Tibshirani, G. Walther, and T. Hastie (Standford University, 2001)</a></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="k-means-clustering.html#cb41-1" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(bdiag<span class="fl">.2</span>vars, kmeans, <span class="at">method =</span> <span class="st">&quot;gap&quot;</span>,  <span class="at">nboot=</span><span class="dv">200</span>, <span class="at">k.max =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>In this case, the method suggests 1 single cluster.</p>
+<p>Depending on the method used, we could have selected between 1 to 3 clusters.</p>
+</div>
+</div>
+<div id="KM4" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Exercises<a href="k-means-clustering.html#KM4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Solve the following exercises:</p>
+<ol style="list-style-type: decimal">
+<li>The dataset <em>fat</em> is available in the <em>library(faraway)</em>.<br />
+The dataset contains several physical measurements.</li>
+</ol>
+<p>Using the variables <em>age</em>, <em>weight</em>, <em>height</em>, <em>adipos</em>, <em>free</em>, <em>neck</em>, <em>chest</em>,
+<em>abdom</em>, <em>hip</em>, <em>thigh</em>, <em>knee</em>, <em>ankle</em>, <em>biceps</em>, <em>forearm</em> and <em>wrist</em></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Plot 3 clusters produce by k-mean in the scatter plot formed by the two
+principal components of the data?</p></li>
+<li><p>Use different methods to investigate how many clusters are suggested by the
+data.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="principal-components-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hierarchical-clustering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

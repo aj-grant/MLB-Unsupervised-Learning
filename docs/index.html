@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Machine Learning for Biostatistics</title>
+  <meta name="description" content="Machine Learning for Biostatistics" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Machine Learning for Biostatistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning for Biostatistics" />
+  
+  
+  
+
+<meta name="author" content="Armando Teixeira-Pinto, Jaroslaw Harezlak &amp; Andrew Grant" />
+
+
+<meta name="date" content="2025-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="principal-components-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><img src="bca.png"><H3><b><font color="F26531"> Machine Learning for Biostatistics </font> </b></H3> <a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><small><i> Back to canvas website </i></small></a></center></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Unsupervised Learning</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dataset-used-in-the-examples"><i class="fa fa-check"></i>Dataset used in the examples</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#slides-from-the-videos"><i class="fa fa-check"></i>Slides from the videos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>1</b> Principal components analysis</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA1"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA2"><i class="fa fa-check"></i><b>1.2</b> Readings</a></li>
+<li class="chapter" data-level="1.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA3"><i class="fa fa-check"></i><b>1.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-1---identify-the-principal-components"><i class="fa fa-check"></i>Task 1 - Identify the principal components</a></li>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-2---use-pca-in-a-prediction-model"><i class="fa fa-check"></i>Task 2 - Use PCA in a prediction model</a></li>
+<li class="chapter" data-level="" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#task-3---use-pca-to-compress-an-image"><i class="fa fa-check"></i>Task 3 - Use PCA to compress an image</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#PCA4"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>2</b> K-means clustering</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM2"><i class="fa fa-check"></i><b>2.2</b> Readings</a></li>
+<li class="chapter" data-level="2.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM3"><i class="fa fa-check"></i><b>2.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-means-clustering.html"><a href="k-means-clustering.html#task-1---identify-k-clusters"><i class="fa fa-check"></i>Task 1 - Identify k clusters</a></li>
+<li class="chapter" data-level="" data-path="k-means-clustering.html"><a href="k-means-clustering.html#task-2---choosing-the-number-of-clusters"><i class="fa fa-check"></i>Task 2 - Choosing the number of clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="k-means-clustering.html"><a href="k-means-clustering.html#KM4"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>3</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC1"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC2"><i class="fa fa-check"></i><b>3.2</b> Readings</a></li>
+<li class="chapter" data-level="3.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC3"><i class="fa fa-check"></i><b>3.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#task-1---identify-clusters"><i class="fa fa-check"></i>Task 1 - Identify clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#HC4"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><center><a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><img src="usyd2.gif" width="60%"></a> <small>© A.Teixeira-Pinto, University of Sydney, 2021</small></center></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning for Biostatistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Machine Learning for Biostatistics</h1>
+<h2 class="subtitle"><em>Module 7</em></h2>
+<p class="author"><em>Armando Teixeira-Pinto, Jaroslaw Harezlak &amp; Andrew Grant</em></p>
+<p class="date"><em>2025-09-15</em></p>
+</div>
+<div id="unsupervised-learning" class="section level1 unnumbered hasAnchor">
+<h1>Unsupervised Learning<a href="index.html#unsupervised-learning" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction" class="section level2 unnumbered hasAnchor">
+<h2>Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Supervised learning</strong>, in machine learning, refers to methods that are applied
+when we want to estimate the function <span class="math inline">\(f(X)\)</span>
+that relates a group of predictors <span class="math inline">\(X\)</span> to a measured outcome <span class="math inline">\(Y\)</span>.
+<strong>Unsupervised learning </strong> refers to methods that <em>learn</em> from the data but
+there is no observed outcome.</p>
+<p>In this module, we will cover several unsupervised learning methods, namely
+principal components analysis, k-means clustering and hierarchical clustering.</p>
+<p>By the end of this module you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li>Implement dimension reduction using principal components analysis</li>
+<li>Implement clustering methods</li>
+</ol>
+</div>
+<div id="dataset-used-in-the-examples" class="section level2 unnumbered hasAnchor">
+<h2>Dataset used in the examples<a href="index.html#dataset-used-in-the-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>The dataset <em>fat</em> is available in the <em>library(faraway)</em>. You may need to install
+this library.</p>
+<p>The data set contains several physical measurements of 252 males.
+Most of the variables can be measured with a scale or tape measure.
+Can they be used to predict the percentage of body fat? If so,
+this offers an easy alternative to an underwater weighing technique.</p>
+<p>Data frame with 252 observations on the following 19 variables.</p>
+<p>The data were generously supplied by Dr. A. Garth Fisher, Human
+Performance Research Center, Brigham Young University, Provo, Utah
+84602, who gave permission to freely distribute the data and use them
+for non-commercial purposes. Reference to the data is made in Penrose,
+et al. (1985).</p>
+<p>Variables:</p>
+<ul>
+<li>brozek – Percent body fat using Brozek’s equation, 457/Density - 414.2</li>
+<li>siri – Percent body fat using Siri’s equation, 495/Density - 450</li>
+<li>density – Density (gm/cm^2)</li>
+<li>age – Age (yrs)</li>
+<li>weight – Weight (lbs)</li>
+<li>height – Height (inches)</li>
+<li>adipos – BMI Adiposity index = Weight/Height^2 (kg/m^2)</li>
+<li>free – Fat Free Weight = (1 - fraction of body fat) * Weight, using Brozek’s formula (lbs)</li>
+<li>neck – Neck circumference (cm)</li>
+<li>chest – Chest circumference (cm)</li>
+<li>abdom – Abdomen circumference (cm) “at the umbilicus and level with the iliac crest”</li>
+<li>hip – Hip circumference (cm)</li>
+<li>dthigh – Thigh circumference (cm)</li>
+<li>knee – Knee circumference (cm)</li>
+<li>ankle – Ankle circumference (cm)</li>
+<li>biceps – Extended biceps circumference (cm)</li>
+<li>forearm – Forearm circumference (cm)</li>
+<li>wrist – Wrist circumference (cm) “distal to the styloid processes”</li>
+</ul>
+<p>
+</p>
+<hr />
+<p>The dataset <a href="https://www.dropbox.com/s/vp44yozebx5xgok/bdiag.csv?dl=0">bdiag.csv</a>
+contains quantitative information from digitized images of a diagnostic test
+(fine needle aspirate (FNA) test on breast mass) for the diagnosis of breast
+cancer. The variables describe characteristics of the cell nuclei present in
+the image.</p>
+<p>Variables Information:</p>
+<ul>
+<li>ID number</li>
+<li>Diagnosis (M = malignant, B = benign)</li>
+</ul>
+<p>and ten real-valued features are computed for each cell nucleus:</p>
+<ul>
+<li>radius (mean of distances from center to points on the perimeter)</li>
+<li>texture (standard deviation of gray-scale values)</li>
+<li>perimeter</li>
+<li>area</li>
+<li>smoothness (local variation in radius lengths)</li>
+<li>compactness (perimeter^2 / area - 1.0)</li>
+<li>concavity (severity of concave portions of the contour)</li>
+<li>concave points (number of concave portions of the contour)</li>
+<li>symmetry</li>
+<li>fractal dimension (“coastline approximation” - 1)</li>
+</ul>
+<p>The mean, standard error and “worst” or largest (mean of the three
+largest values) of these features were computed for each image,
+resulting in 30 features. For instance, field 3 is Mean Radius, field
+13 is Radius SE, field 23 is Worst Radius.</p>
+<p>This database is also available through the UW CS ftp server:
+ftp ftp.cs.wisc.edu
+cd math-prog/cpo-dataset/machine-learn/WDBC/</p>
+</div>
+<div id="slides-from-the-videos" class="section level2 unnumbered hasAnchor">
+<h2>Slides from the videos<a href="index.html#slides-from-the-videos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You can download the slides used in the videos from Unsupervised Learning:</p>
+<p><a href="https://www.dropbox.com/scl/fi/ag3ubg9bmgn7thg58fsmb/Module-7-Unsupervised-Learning_2025.pdf?rlkey=s8ar3xlql1rmsmdvggdirnzkd&amp;st=zgk187fy&amp;dl=1">Slides</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="principal-components-analysis.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
